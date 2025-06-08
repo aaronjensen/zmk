@@ -304,9 +304,13 @@ static void zmk_rgb_underglow_effect_kinesis() {
     // and slowly if not connected
     int bt_idx = zmk_ble_active_profile_index();
     if (zmk_ble_active_profile_is_open()) {
-        bt_blinking = zmk_kinesis_blink_step(0, 2);
+        //## Disable light if not connected by making it permanently "blinked" - Aaron, Sun Jun 8 2025
+        //## bt_blinking = zmk_kinesis_blink_step(0, 2);
+        bt_blinking = true;
     } else if (!zmk_ble_active_profile_is_connected()) {
-        bt_blinking = zmk_kinesis_blink_step(1, 13);
+        //## Disable light if not connected by making it permanently "blinked" - Aaron, Sun Jun 8 2025
+        //## bt_blinking = zmk_kinesis_blink_step(1, 13); */
+        bt_blinking = true;
     }
     pixels[1] = (bt_idx < NUM_BT_COLORS && !bt_blinking) ? BT_COLORS[bt_idx] : LED_RGB(0x000000);
 
